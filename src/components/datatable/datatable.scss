@@ -1,8 +1,8 @@
 .datatable {
   height: 600px;
   padding: 20px;
-  
-  .datatableTitle{
+
+  .datatableTitle {
     width: 100%;
     font-size: 24px;
     color: gray;
@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: space-between;
 
-    .link{
+    .link {
       text-decoration: none;
       color: green;
       font-size: 16px;
@@ -59,14 +59,14 @@
     align-items: center;
     gap: 15px;
 
-    .viewButton {
+    .editButton {
       padding: 2px 5px;
       border-radius: 5px;
       color: darkblue;
       border: 1px dotted rgba(0, 0, 139, 0.596);
       cursor: pointer;
     }
-    
+
     .deleteButton {
       padding: 2px 5px;
       border-radius: 5px;
@@ -74,5 +74,12 @@
       border: 1px dotted rgba(220, 20, 60, 0.6);
       cursor: pointer;
     }
+  }
+
+  .wrapText {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    white-space: normal;
   }
 }
