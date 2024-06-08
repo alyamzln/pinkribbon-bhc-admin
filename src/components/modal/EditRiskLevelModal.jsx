@@ -15,6 +15,7 @@ import { db } from "../../firebase";
 import { toast } from "react-toastify";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import useLevelForm from "../../hooks/useLevelForm";
 
 const EditRiskLevelModal = ({ open, onClose, level }) => {
   const [criteria, setCriteria] = useState([]);
@@ -61,16 +62,28 @@ const EditRiskLevelModal = ({ open, onClose, level }) => {
   };
 
   const handleRecommendationsChange = (type, ageRange, field, value) => {
-    setRecommendations((prev) => ({
-      ...prev,
-      [type]: {
-        ...prev[type],
-        [ageRange]: {
-          ...prev[type][ageRange],
-          [field]: value,
+    if (field === "description") {
+      // Handle description field separately as a string
+      setRecommendations((prev) => ({
+        ...prev,
+        [type]: {
+          ...prev[type],
+          [field]: value, // Set the description directly as a string
         },
-      },
-    }));
+      }));
+    } else {
+      // Handle other fields as before
+      setRecommendations((prev) => ({
+        ...prev,
+        [type]: {
+          ...prev[type],
+          [ageRange]: {
+            ...prev[type][ageRange],
+            [field]: value,
+          },
+        },
+      }));
+    }
   };
 
   const saveChanges = async () => {
