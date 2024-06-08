@@ -1,18 +1,18 @@
 import "./list.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Datatable from "../../components/datatable/Datatable";
+import FacilitiesDatatable from "../health-facilities/FacilitiesDatatable";
 
-const List = () => {
+const FacilityList = () => {
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <Datatable />
+        <FacilitiesDatatable />
       </div>
     </div>
   );
 };
 
-export default List;
+export default FacilityList;

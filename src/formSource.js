@@ -1,77 +1,101 @@
 export const userInputs = [
-    {
-      id: 1,
-      label: "Username",
-      type: "text",
-      placeholder: "john_doe",
-    },
-    {
-      id: 2,
-      label: "Name and surname",
-      type: "text",
-      placeholder: "John Doe",
-    },
-    {
-      id: 3,
-      label: "Email",
-      type: "mail",
-      placeholder: "john_doe@gmail.com",
-    },
-    {
-      id: 4,
-      label: "Phone",
-      type: "text",
-      placeholder: "+1 234 567 89",
-    },
-    {
-      id: 5,
-      label: "Password",
-      type: "password",
-    },
-    {
-      id: 6,
-      label: "Address",
-      type: "text",
-      placeholder: "Elton St. 216 NewYork",
-    },
-    {
-      id: 7,
-      label: "Country",
-      type: "text",
-      placeholder: "USA",
-    },
-  ];
-  
-  export const productInputs = [
-    {
-      id: 1,
-      label: "Title",
-      type: "text",
-      placeholder: "Apple Macbook Pro",
-    },
-    {
-      id: 2,
-      label: "Description",
-      type: "text",
-      placeholder: "Description",
-    },
-    {
-      id: 3,
-      label: "Category",
-      type: "text",
-      placeholder: "Computers",
-    },
-    {
-      id: 4,
-      label: "Price",
-      type: "text",
-      placeholder: "100",
-    },
-    {
-      id: 5,
-      label: "Stock",
-      type: "text",
-      placeholder: "in stock",
-    },
-  ];
-  
+  {
+    id: "Username",
+    label: "Username",
+    type: "text",
+    placeholder: "nur_alya",
+  },
+  {
+    id: "FirstName",
+    label: "First Name",
+    type: "text",
+    placeholder: "Nur Alya",
+  },
+  {
+    id: "LastName",
+    label: "Last Name",
+    type: "text",
+    placeholder: "Mazlan",
+  },
+  {
+    id: "Email",
+    label: "Email",
+    type: "mail",
+    placeholder: "nur_alya@gmail.com",
+  },
+  {
+    id: "PhoneNumber",
+    label: "Phone",
+    type: "text",
+    placeholder: "+60123456789",
+  },
+  {
+    id: "Password",
+    label: "Password",
+    type: "password",
+  },
+];
+
+export const healthcareInputs = [
+  {
+    id: "name",
+    label: "Facility Name",
+    type: "text",
+    placeholder: "ABC Hospital",
+  },
+  {
+    id: "address",
+    label: "Address",
+    type: "text",
+    placeholder: "123 Main Street",
+  },
+  {
+    id: "region",
+    label: "Region",
+    type: "select",
+    options: [
+      { label: "Johor", value: "Johor" },
+      { label: "Kedah", value: "Kedah" },
+      { label: "Kelantan", value: "Kelantan" },
+      { label: "Kuala Lumpur", value: "Kuala Lumpur" },
+      { label: "W.P. Labuan", value: "W.P. Labuan" },
+      { label: "Langkawi", value: "Langkawi" },
+      { label: "Melaka", value: "Melaka" },
+      { label: "Negeri Sembilan", value: "Negeri Sembilan" },
+      { label: "Pahang", value: "Pahang" },
+      { label: "Perak", value: "Perak" },
+      { label: "Perlis", value: "Perlis" },
+      { label: "Penang", value: "Penang" },
+      { label: "Sabah", value: "Sabah" },
+      { label: "Sarawak", value: "Sarawak" },
+      { label: "Selangor", value: "Selangor" },
+      { label: "Terengganu", value: "Terengganu" },
+      { label: "Putrajaya", value: "Putrajaya" },
+    ],
+    placeholder: "Select Region",
+  },
+  {
+    id: "contactNum",
+    label: "Contact Number",
+    type: "text",
+    placeholder: "04-1234567",
+  },
+  {
+    id: "website",
+    label: "Website",
+    type: "text",
+    placeholder: "www.abc.com",
+  },
+  {
+    id: "latitude",
+    label: "Latitude",
+    type: "number",
+    placeholder: "Latitude",
+  },
+  {
+    id: "longitude",
+    label: "Longitude",
+    type: "number",
+    placeholder: "Longitude",
+  },
+];

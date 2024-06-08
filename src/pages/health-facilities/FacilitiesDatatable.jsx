@@ -1,27 +1,21 @@
-import "./datatable.scss";
+import "../../components/datatable/datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../../datatablesource";
+import { facilitiesColumns } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { db } from "../../firebase";
-import {
-  collection,
-  getDocs,
-  deleteDoc,
-  doc,
-  onSnapshot,
-} from "firebase/firestore";
-import EditUserModal from "../modal/EditUserModal";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import EditFacilityModal from "../../components/modal/EditFacilityModal";
 
-const Datatable = () => {
+const FacilitiesDatatable = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedFacility, setSelectedFacility] = useState(null);
 
   useEffect(() => {
     const unsub = onSnapshot(
-      collection(db, "Users"),
+      collection(db, "HealthcareFacilities"),
       (snapShot) => {
         let list = [];
         snapShot.docs.forEach((doc) => {
@@ -41,22 +35,22 @@ const Datatable = () => {
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this user?"
+      "Are you sure you want to delete this facility?"
     );
     if (!confirmed) return;
 
     try {
-      await deleteDoc(doc(db, "Users", id));
+      await deleteDoc(doc(db, "HealthcareFacilities", id));
       setData(data.filter((item) => item.id !== id));
-      toast.success("User deleted successfully");
+      toast.success("Facility deleted successfully");
     } catch (err) {
-      toast.error("Failed to delete user");
+      toast.error("Failed to delete facility");
       console.log(err);
     }
   };
 
-  const handleEdit = (user) => {
-    setSelectedUser(user);
+  const handleEdit = (facility) => {
+    setSelectedFacility(facility);
     setOpen(true);
   };
 
@@ -87,28 +81,28 @@ const Datatable = () => {
     <div className="datatable">
       <ToastContainer />
       <div className="datatableTitle">
-        Add New User
-        <Link to="/users/new" className="link">
+        Add Healthcare Facilities
+        <Link to="/healthcarefacilities/new" className="link">
           Add New
         </Link>
       </div>
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={userColumns.concat(actionColumn)}
+        columns={facilitiesColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
       />
-      {selectedUser && (
-        <EditUserModal
+      {selectedFacility && (
+        <EditFacilityModal
           open={open}
           onClose={() => setOpen(false)}
-          user={selectedUser}
+          facility={selectedFacility}
         />
       )}
     </div>
   );
 };
 
-export default Datatable;
+export default FacilitiesDatatable;

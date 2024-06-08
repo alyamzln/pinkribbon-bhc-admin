@@ -1,18 +1,18 @@
 import "./list.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import Datatable from "../../components/datatable/Datatable";
+import RiskLevelsDatatable from "../risk-levels/RiskLevelsDatatable";
 
-const List = () => {
+const RiskLevelsList = () => {
   return (
     <div className="list">
       <Sidebar />
       <div className="listContainer">
         <Navbar />
-        <Datatable />
+        <RiskLevelsDatatable />
       </div>
     </div>
   );
 };
 
-export default List;
+export default RiskLevelsList;

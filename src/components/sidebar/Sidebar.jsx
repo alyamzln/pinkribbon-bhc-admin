@@ -1,27 +1,44 @@
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import StoreIcon from "@mui/icons-material/Store";
-import InsertChartIcon from "@mui/icons-material/InsertChart";
-import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import SchoolIcon from "@mui/icons-material/School";
+import QuizIcon from "@mui/icons-material/Quiz";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
-import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { getAuth, signOut } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        toast.success("Logout successful");
+        navigate("/login");
+      })
+      .catch((error) => {
+        // An error happened.
+        toast.error("Logout failed");
+        console.log(error);
+      });
+  };
+
   return (
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">PR BHCAdmin</span>
         </Link>
       </div>
       <hr />
@@ -39,49 +56,43 @@ const Sidebar = () => {
               <span>Users</span>
             </li>
           </Link>
-          <Link to="/products" style={{ textDecoration: "none" }}>
+          <Link to="/educontent" style={{ textDecoration: "none" }}>
             <li>
-              <StoreIcon className="icon" />
-              <span>Products</span>
+              <SchoolIcon className="icon" />
+              <span>Educational Content</span>
             </li>
           </Link>
-          <li>
-            <CreditCardIcon className="icon" />
-            <span>Orders</span>
-          </li>
-          <li>
-            <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
-          </li>
-          <p className="title">USEFUL</p>
-          <li>
-            <InsertChartIcon className="icon" />
-            <span>Stats</span>
-          </li>
-          <li>
-            <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
-          </li>
-          <p className="title">SERVICE</p>
-          <li>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
-          </li>
-          <li>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
-          </li>
-          <li>
-            <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
-          </li>
+          <Link to="/quizzes" style={{ textDecoration: "none" }}>
+            <li>
+              <QuizIcon className="icon" />
+              <span>Quizzes</span>
+            </li>
+          </Link>
+          <Link to="/risk-questions" style={{ textDecoration: "none" }}>
+            <li>
+              <HelpOutlineIcon className="icon" />
+              <span>Risk Questions</span>
+            </li>
+          </Link>
+          <Link to="/risklevels" style={{ textDecoration: "none" }}>
+            <li>
+              <AssessmentIcon className="icon" />
+              <span>Risk Levels</span>
+            </li>
+          </Link>
+          <Link to="/healthcarefacilities" style={{ textDecoration: "none" }}>
+            <li>
+              <LocalHospitalIcon className="icon" />
+              <span>Healthcare Facilities</span>
+            </li>
+          </Link>
           <p className="title">USER</p>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
           <li>
-            <ExitToAppIcon className="icon" />
+            <ExitToAppIcon className="icon" onClick={handleLogOut} />
             <span>Logout</span>
           </li>
         </ul>

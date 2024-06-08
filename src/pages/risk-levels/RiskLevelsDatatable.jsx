@@ -1,27 +1,21 @@
-import "./datatable.scss";
+import "../../components/datatable/datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../../datatablesource";
+import { riskLevelsColumns } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { db } from "../../firebase";
-import {
-  collection,
-  getDocs,
-  deleteDoc,
-  doc,
-  onSnapshot,
-} from "firebase/firestore";
-import EditUserModal from "../modal/EditUserModal";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import EditRiskLevelModal from "../../components/modal/EditRiskLevelModal";
 
-const Datatable = () => {
+const RiskLevelsDatatable = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedLevel, setSelectedLevel] = useState(null);
 
   useEffect(() => {
     const unsub = onSnapshot(
-      collection(db, "Users"),
+      collection(db, "BreastCancerRiskLevels"),
       (snapShot) => {
         let list = [];
         snapShot.docs.forEach((doc) => {
@@ -41,22 +35,22 @@ const Datatable = () => {
 
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this user?"
+      "Are you sure you want to delete this data?"
     );
     if (!confirmed) return;
 
     try {
-      await deleteDoc(doc(db, "Users", id));
+      await deleteDoc(doc(db, "BreastCancerRiskLevels", id));
       setData(data.filter((item) => item.id !== id));
-      toast.success("User deleted successfully");
+      toast.success("Data deleted successfully");
     } catch (err) {
-      toast.error("Failed to delete user");
+      toast.error("Failed to delete data");
       console.log(err);
     }
   };
 
-  const handleEdit = (user) => {
-    setSelectedUser(user);
+  const handleEdit = (level) => {
+    setSelectedLevel(level);
     setOpen(true);
   };
 
@@ -86,29 +80,25 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <ToastContainer />
-      <div className="datatableTitle">
-        Add New User
-        <Link to="/users/new" className="link">
-          Add New
-        </Link>
-      </div>
+
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={userColumns.concat(actionColumn)}
+        columns={riskLevelsColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
+        getRowHeight={(params) => 300}
       />
-      {selectedUser && (
-        <EditUserModal
+      {selectedLevel && (
+        <EditRiskLevelModal
           open={open}
           onClose={() => setOpen(false)}
-          user={selectedUser}
+          level={selectedLevel}
         />
       )}
     </div>
   );
 };
 
-export default Datatable;
+export default RiskLevelsDatatable;
