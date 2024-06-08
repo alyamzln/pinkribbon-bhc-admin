@@ -50,7 +50,7 @@ const RiskLevelsDatatable = () => {
   };
 
   const handleEdit = (level) => {
-    setSelectedLevel(level);
+    setSelectedLevel(level.id);
     setOpen(true);
   };
 

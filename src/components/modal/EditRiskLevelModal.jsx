@@ -6,14 +6,15 @@ import {
   DialogActions,
   Button,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+  IconButton,
+  Typography,
+  Box,
 } from "@mui/material";
 import { updateDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { toast } from "react-toastify";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 const EditRiskLevelModal = ({ open, onClose, level }) => {
   const [criteria, setCriteria] = useState([]);
@@ -21,14 +22,16 @@ const EditRiskLevelModal = ({ open, onClose, level }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!level) return; // Ensure level is defined before fetching data
+
     const fetchRiskLevel = async () => {
       try {
         const docRef = doc(db, "BreastCancerRiskLevels", level);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
-          setCriteria(data.criteria);
-          setRecommendations(data.recommendations);
+          setCriteria(data.criteria || []);
+          setRecommendations(data.recommendations || {});
         } else {
           console.log("No such document!");
         }
@@ -48,10 +51,25 @@ const EditRiskLevelModal = ({ open, onClose, level }) => {
     setCriteria(updatedCriteria);
   };
 
-  const handleRecommendationsChange = (field, value) => {
+  const handleAddCriterion = () => {
+    setCriteria([...criteria, ""]);
+  };
+
+  const handleRemoveCriterion = (index) => {
+    const updatedCriteria = criteria.filter((_, i) => i !== index);
+    setCriteria(updatedCriteria);
+  };
+
+  const handleRecommendationsChange = (type, ageRange, field, value) => {
     setRecommendations((prev) => ({
       ...prev,
-      [field]: value,
+      [type]: {
+        ...prev[type],
+        [ageRange]: {
+          ...prev[type][ageRange],
+          [field]: value,
+        },
+      },
     }));
   };
 
@@ -77,37 +95,87 @@ const EditRiskLevelModal = ({ open, onClose, level }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Edit Risk Level: {level}</DialogTitle>
       <DialogContent>
-        <h3>Criteria:</h3>
+        <Typography variant="h6">Criteria:</Typography>
         {criteria.map((criterion, index) => (
-          <TextField
-            key={index}
-            fullWidth
-            margin="dense"
-            label={`Criterion ${index + 1}`}
-            value={criterion}
-            onChange={(e) => handleCriteriaChange(index, e.target.value)}
-          />
+          <Box key={index} display="flex" alignItems="center">
+            <TextField
+              fullWidth
+              margin="dense"
+              label={`Criterion ${index + 1}`}
+              value={criterion}
+              onChange={(e) => handleCriteriaChange(index, e.target.value)}
+            />
+            <IconButton onClick={() => handleRemoveCriterion(index)}>
+              <RemoveCircleIcon />
+            </IconButton>
+          </Box>
         ))}
-        <h3>Recommendations:</h3>
-        <TextField
-          fullWidth
-          margin="dense"
-          label="Recommendation 1"
-          value={recommendations.recommendation1 || ""}
-          onChange={(e) =>
-            handleRecommendationsChange("recommendation1", e.target.value)
-          }
-        />
-        <TextField
-          fullWidth
-          margin="dense"
-          label="Recommendation 2"
-          value={recommendations.recommendation2 || ""}
-          onChange={(e) =>
-            handleRecommendationsChange("recommendation2", e.target.value)
-          }
-        />
-        {/* Add more recommendation fields as needed */}
+        <Button
+          startIcon={<AddCircleIcon />}
+          onClick={handleAddCriterion}
+          color="primary"
+        >
+          Add Criterion
+        </Button>
+
+        <Typography variant="h6" style={{ marginTop: "20px" }}>
+          Recommendations:
+        </Typography>
+        {Object.keys(recommendations).map((type) => (
+          <Box key={type} mt={2}>
+            <Typography variant="subtitle1">{type}</Typography>
+            {Object.keys(recommendations[type]).map(
+              (ageRange) =>
+                ageRange !== "description" && (
+                  <Box key={ageRange} mt={1}>
+                    <Typography variant="body2">{`Age ${ageRange}`}</Typography>
+                    <TextField
+                      fullWidth
+                      margin="dense"
+                      label="Frequency"
+                      value={recommendations[type][ageRange].frequency || ""}
+                      onChange={(e) =>
+                        handleRecommendationsChange(
+                          type,
+                          ageRange,
+                          "frequency",
+                          e.target.value
+                        )
+                      }
+                    />
+                    <TextField
+                      fullWidth
+                      margin="dense"
+                      label="Source"
+                      value={recommendations[type][ageRange].source || ""}
+                      onChange={(e) =>
+                        handleRecommendationsChange(
+                          type,
+                          ageRange,
+                          "source",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </Box>
+                )
+            )}
+            <TextField
+              fullWidth
+              margin="dense"
+              label="Description"
+              value={recommendations[type].description || ""}
+              onChange={(e) =>
+                handleRecommendationsChange(
+                  type,
+                  "description",
+                  "description",
+                  e.target.value
+                )
+              }
+            />
+          </Box>
+        ))}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
