@@ -6,6 +6,7 @@ import New from "./pages/new/New";
 import FacilityList from "./pages/list/FacilityList";
 import NewFacility from "./pages/new/NewFacility";
 import RiskLevelsList from "./pages/list/RiskLevelList";
+import RiskQuestionsList from "./pages/list/RiskQuestionsList";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { healthcareInputs, userInputs } from "./formSource";
@@ -111,6 +112,35 @@ function App() {
                   </RequireAuth>
                 }
               />
+            </Route>
+            <Route path="riskquestions">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <RiskQuestionsList />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":questionId"
+                element={
+                  <RequireAuth>
+                    <Single />
+                  </RequireAuth>
+                }
+              />
+              {/* <Route
+                path="newquestion"
+                element={
+                  <RequireAuth>
+                    <NewFacility
+                      inputs={healthcareInputs}
+                      title="Add New Question"
+                    />
+                  </RequireAuth>
+                }
+              /> */}
             </Route>
           </Route>
         </Routes>

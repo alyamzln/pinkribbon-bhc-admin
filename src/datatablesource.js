@@ -157,3 +157,72 @@ export const riskLevelsColumns = [
     },
   },
 ];
+
+export const riskQuesColumns = [
+  {
+    field: "part",
+    headerName: "Part",
+    width: 150,
+  },
+  {
+    field: "question",
+    headerName: "Question",
+    width: 300,
+    renderCell: (params) => {
+      return <div className="wrapText">{params.row.question}</div>;
+    },
+  },
+  {
+    field: "answer",
+    headerName: "Answer",
+    width: 150,
+    renderCell: (params) => {
+      return <div className="wrapText">{params.row.answer}</div>;
+    },
+  },
+  {
+    field: "score",
+    headerName: "Score",
+    width: 80,
+  },
+  {
+    field: "showAlert",
+    headerName: "Show Alert",
+    width: 100,
+    renderCell: (params) => {
+      return params.value ? "Yes" : "No";
+    },
+  },
+  {
+    field: "alertMessage",
+    headerName: "Alert Message",
+    width: 300,
+    renderCell: (params) => {
+      return <div className="wrapText">{params.row.alertMessage}</div>;
+    },
+  },
+  {
+    field: "highRisk",
+    headerName: "High Risk",
+    width: 120,
+    renderCell: (params) => {
+      return params.value ? "Yes" : "No";
+    },
+  },
+  {
+    field: "nextQuestions",
+    headerName: "Next Questions",
+    width: 300,
+    renderCell: (params) => {
+      return (
+        <div className="wrapText">
+          <ul>
+            {params.value.map((nextQuestion, index) => (
+              <li key={index}>{nextQuestion.question}</li>
+            ))}
+          </ul>
+        </div>
+      );
+    },
+  },
+];

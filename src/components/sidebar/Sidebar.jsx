@@ -68,7 +68,7 @@ const Sidebar = () => {
               <span>Quizzes</span>
             </li>
           </Link>
-          <Link to="/risk-questions" style={{ textDecoration: "none" }}>
+          <Link to="/riskquestions" style={{ textDecoration: "none" }}>
             <li>
               <HelpOutlineIcon className="icon" />
               <span>Risk Questions</span>
