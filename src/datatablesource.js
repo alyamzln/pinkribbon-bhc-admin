@@ -226,3 +226,54 @@ export const riskQuesColumns = [
     },
   },
 ];
+
+export const eduContentColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "title",
+    headerName: "Title",
+    width: 200,
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 400,
+    renderCell: (params) => {
+      return <div className="wrapText">{params.row.description}</div>;
+    },
+  },
+  {
+    field: "image",
+    headerName: "Image",
+    width: 150,
+    renderCell: (params) => {
+      return <img className="cellImg" src={params.row.image} alt="content" />;
+    },
+  },
+];
+
+export const quizColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "question",
+    headerName: "Question",
+    width: 300,
+    renderCell: (params) => {
+      return <div className="wrapText">{params.row.question}</div>;
+    },
+  },
+  {
+    field: "answer",
+    headerName: "Answer",
+    width: 300,
+    renderCell: (params) => {
+      return (
+        <ul>
+          {params.row.answer.map((ans, index) => (
+            <li key={index}>{ans}</li>
+          ))}
+        </ul>
+      );
+    },
+  },
+];

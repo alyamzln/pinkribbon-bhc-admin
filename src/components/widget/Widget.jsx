@@ -1,22 +1,18 @@
 import "./widget.scss";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import LocalHospitalOutlinedIcon from "@mui/icons-material/LocalHospitalOutlined";
 
 const Widget = ({ type }) => {
   let data;
-
-  //temporary
-  const amount = 100;
-  const diff = 20;
 
   switch (type) {
     case "user":
       data = {
         title: "USERS",
-        isMoney: false,
         link: "See all users",
         icon: (
           <PersonOutlinedIcon
@@ -29,47 +25,68 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-    case "order":
+    case "education":
       data = {
-        title: "ORDERS",
-        isMoney: false,
-        link: "View all orders",
+        title: "EDUCATIONAL CONTENT",
+        link: "See all content",
         icon: (
-          <ShoppingCartOutlinedIcon
+          <SchoolOutlinedIcon
+            className="icon"
+            style={{ color: "blue", backgroundColor: "rgba(0, 0, 255, 0.2)" }}
+          />
+        ),
+      };
+      break;
+    case "quiz":
+      data = {
+        title: "QUIZZES",
+        link: "Take quizzes",
+        icon: (
+          <QuizOutlinedIcon
+            className="icon"
+            style={{ color: "green", backgroundColor: "rgba(0, 255, 0, 0.2)" }}
+          />
+        ),
+      };
+      break;
+    case "riskQuestion":
+      data = {
+        title: "RISK QUESTIONS",
+        link: "See all questions",
+        icon: (
+          <HelpOutlineOutlinedIcon
             className="icon"
             style={{
-              backgroundColor: "rgba(218, 165, 32, 0.2)",
-              color: "goldenrod",
+              color: "orange",
+              backgroundColor: "rgba(255, 165, 0, 0.2)",
             }}
           />
         ),
       };
       break;
-    case "earning":
+    case "riskResult":
       data = {
-        title: "EARNINGS",
-        isMoney: true,
-        link: "View net earnings",
+        title: "RISK RESULTS",
+        link: "See all results",
         icon: (
-          <MonetizationOnOutlinedIcon
-            className="icon"
-            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
-          />
-        ),
-      };
-      break;
-    case "balance":
-      data = {
-        title: "BALANCE",
-        isMoney: true,
-        link: "See details",
-        icon: (
-          <AccountBalanceWalletOutlinedIcon
+          <CheckCircleOutlineOutlinedIcon
             className="icon"
             style={{
-              backgroundColor: "rgba(128, 0, 128, 0.2)",
               color: "purple",
+              backgroundColor: "rgba(128, 0, 128, 0.2)",
             }}
+          />
+        ),
+      };
+      break;
+    case "healthcareFacility":
+      data = {
+        title: "HEALTHCARE FACILITIES",
+        link: "Find facilities",
+        icon: (
+          <LocalHospitalOutlinedIcon
+            className="icon"
+            style={{ color: "red", backgroundColor: "rgba(255, 0, 0, 0.2)" }}
           />
         ),
       };
@@ -82,18 +99,9 @@ const Widget = ({ type }) => {
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
-        <span className="counter">
-          {data.isMoney && "$"} {amount}
-        </span>
         <span className="link">{data.link}</span>
       </div>
-      <div className="right">
-        <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          {diff} %
-        </div>
-        {data.icon}
-      </div>
+      <div className="right">{data.icon}</div>
     </div>
   );
 };

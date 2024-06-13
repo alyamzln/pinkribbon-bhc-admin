@@ -45,6 +45,7 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
+          <Link to="/" style={{ textDecoration: "none" }}></Link>
           <li>
             <DashboardIcon className="icon" />
             <span>Dashboard</span>
@@ -56,7 +57,7 @@ const Sidebar = () => {
               <span>Users</span>
             </li>
           </Link>
-          <Link to="/educontent" style={{ textDecoration: "none" }}>
+          {/* <Link to="/educontent" style={{ textDecoration: "none" }}>
             <li>
               <SchoolIcon className="icon" />
               <span>Educational Content</span>
@@ -67,7 +68,7 @@ const Sidebar = () => {
               <QuizIcon className="icon" />
               <span>Quizzes</span>
             </li>
-          </Link>
+          </Link> */}
           <Link to="/riskquestions" style={{ textDecoration: "none" }}>
             <li>
               <HelpOutlineIcon className="icon" />
@@ -87,10 +88,6 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">USER</p>
-          <li>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li>
           <li>
             <ExitToAppIcon className="icon" onClick={handleLogOut} />
             <span>Logout</span>

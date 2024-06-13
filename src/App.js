@@ -7,9 +7,17 @@ import FacilityList from "./pages/list/FacilityList";
 import NewFacility from "./pages/new/NewFacility";
 import RiskLevelsList from "./pages/list/RiskLevelList";
 import RiskQuestionsList from "./pages/list/RiskQuestionsList";
+import EduContentList from "./pages/list/EduContentList";
+import NewContent from "./pages/new/NewContent";
+import NewQuiz from "./pages/new/NewQuiz";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { healthcareInputs, userInputs } from "./formSource";
+import {
+  healthcareInputs,
+  userInputs,
+  contentInputs,
+  quizInputs,
+} from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -109,6 +117,35 @@ function App() {
                 element={
                   <RequireAuth>
                     <Single />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="educontent">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <EduContentList />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":contentId"
+                element={
+                  <RequireAuth>
+                    <Single />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <RequireAuth>
+                    <NewContent
+                      inputs={contentInputs}
+                      title="Add New Content"
+                    />
                   </RequireAuth>
                 }
               />

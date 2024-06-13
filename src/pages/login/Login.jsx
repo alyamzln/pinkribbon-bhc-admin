@@ -23,7 +23,7 @@ const Login = () => {
         const user = userCredential.user;
         dispatch({ type: "LOGIN", payload: user });
         toast.success("Login successful!");
-        navigate("/");
+        navigate("/users");
       })
       .catch((error) => {
         toast.error("Wrong email or password!");

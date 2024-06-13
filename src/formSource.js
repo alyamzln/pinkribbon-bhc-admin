@@ -99,3 +99,33 @@ export const healthcareInputs = [
     placeholder: "Longitude",
   },
 ];
+
+export const quizInputs = [
+  {
+    id: "question",
+    label: "Question",
+    type: "text",
+    placeholder: "Enter question",
+  },
+  {
+    id: "answer",
+    label: "Answer",
+    type: "textarea",
+    placeholder: "Enter answers separated by commas",
+  },
+];
+
+export const contentInputs = [
+  {
+    id: "title",
+    label: "Title",
+    type: "text",
+    placeholder: "Enter title",
+  },
+  {
+    id: "description",
+    label: "Description",
+    type: "text",
+    placeholder: "Enter description",
+  },
+];

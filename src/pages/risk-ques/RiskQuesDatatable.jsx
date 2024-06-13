@@ -5,7 +5,7 @@ import { riskQuesColumns } from "../../datatablesource";
 import { ToastContainer, toast } from "react-toastify";
 import { db } from "../../firebase";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
-import EditQuestionModal from "../../components/modal/EditQuesModal";
+import EditQuestionModal from "../../components/modal/EditRiskQuesModal";
 
 const RiskQuesDatatable = () => {
   const [data, setData] = useState([]);
